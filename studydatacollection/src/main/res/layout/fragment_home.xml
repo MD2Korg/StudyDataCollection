@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorbackground"
+    android:orientation="vertical">
+    <!-- studyname & status bar-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backGroundDark"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3">
+
+            <TextView
+                android:id="@+id/textview_userid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textAppearance="@style/CodeFont" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7">
+
+            <com.beardedhen.androidbootstrap.AwesomeTextView
+                android:id="@+id/textview_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="10dp"
+                app:bootstrapBrand="success"
+                app:bootstrapText="Status:    {fa_check_circle}"
+                app:roundedCorners="true"
+                app:showOutline="true" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <org.md2k.mcerebrum.commons.ui.data_quality.ViewDataQuality
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </org.md2k.mcerebrum.commons.ui.data_quality.ViewDataQuality>
+    <org.md2k.mcerebrum.commons.ui.privacy.ViewPrivacy
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </org.md2k.mcerebrum.commons.ui.privacy.ViewPrivacy>
+
+</LinearLayout>
