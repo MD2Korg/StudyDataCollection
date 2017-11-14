@@ -1,4 +1,4 @@
-package org.md2k.studydatacollection;
+package org.md2k.studydatacollection.configuration;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -26,34 +26,10 @@ package org.md2k.studydatacollection;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import android.content.Context;
-import android.content.Intent;
+public class CHelp {
+    private String url;
 
-import org.md2k.mcerebrum.commons.permission.ActivityPermission;
-import org.md2k.mcerebrum.commons.permission.Permission;
-import org.md2k.mcerebrum.core.access.MCerebrum;
-import org.md2k.mcerebrum.core.access.MCerebrumInfo;
-
-public class MyMCerebrumInit extends MCerebrumInfo {
-    @Override
-    public void update(final Context context){
-        MCerebrum.setBackgroundService(context, ServiceStudy.class);
-        if(!Permission.hasPermission(context)){
-            Intent intent = new Intent(context, ActivityPermission.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        }
-
-/*
-        if(!MCerebrum.getPermission(context)){
-            if(Permission.hasPermission(context))
-                MCerebrum.setPermission(context, true);
-            else{
-                Intent intent = new Intent(context, ActivityPermission.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        }
-*/
+    public String getUrl() {
+        return url;
     }
 }

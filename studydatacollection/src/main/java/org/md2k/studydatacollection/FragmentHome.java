@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.beardedhen.androidbootstrap.AwesomeTextView;
 import com.beardedhen.androidbootstrap.BootstrapText;
@@ -16,75 +17,73 @@ import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import org.md2k.mcerebrum.commons.ui.data_quality.CDataQuality;
+import org.md2k.mcerebrum.commons.ui.data_quality.ResultCallback;
+import org.md2k.mcerebrum.commons.ui.data_quality.UserViewDataQuality;
+import org.md2k.mcerebrum.commons.ui.data_quality.ViewDataQuality;
+import org.md2k.mcerebrum.commons.ui.privacy.UserViewPrivacyControl;
+import org.md2k.mcerebrum.commons.ui.privacy.ViewPrivacy;
 import org.md2k.mcerebrum.core.access.appinfo.AppInfo;
 import org.md2k.mcerebrum.core.data_format.DATA_QUALITY;
 import org.md2k.mcerebrum.system.update.Update;
-
-import mehdi.sakout.fancybuttons.FancyButton;
+import org.md2k.studydatacollection.configuration.CHomeScreen;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class FragmentHome extends Fragment {
+    UserViewDataQuality userViewDataQuality;
+    UserViewPrivacyControl userViewPrivacyControl;
 
-    FancyButton data_collection;
-//    FancyButton pause_resume_data_collection;
-    AwesomeTextView tv;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
         return inflater.inflate(R.layout.fragment_home, parent, false);
     }
+
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
-        tv = (AwesomeTextView) view.findViewById(R.id.textview_status);
-    }
-    Drawable getDataQualityImage(int value){
-        switch(value){
-            case -1: return new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_refresh).sizeDp(24).color(Color.GRAY);
-            case DATA_QUALITY.GOOD: return new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_check_circle).sizeDp(24).color(Color.GREEN);
-            case DATA_QUALITY.BAND_OFF: return new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_times_circle).sizeDp(24).color(Color.RED);
-            default: return new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_exclamation_triangle).sizeDp(24).color(Color.YELLOW);
+        CHomeScreen cHomeScreen = ((ActivityMain)getActivity()).cConfig.ui.home_screen;
+        if(cHomeScreen.data_quality!=null) {
+            loadDataQuality(view, cHomeScreen.data_quality);
+        }
+        if(cHomeScreen.privacy!=null){
+            loadPrivacy(view);
         }
     }
+    void loadDataQuality(View view, CDataQuality[] cDataQualities){
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.linear_layout_add);
+        final ViewDataQuality viewDataQuality=new ViewDataQuality(getActivity(), cDataQualities);
+        LinearLayout.LayoutParams LLParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        viewDataQuality.setLayoutParams(LLParams);
+        linearLayout.addView(viewDataQuality);
+        userViewDataQuality=new UserViewDataQuality(((ActivityMain)getActivity()).dataQualityManager);
+        userViewDataQuality.set(new ResultCallback() {
+            @Override
+            public void onResult(int[] result) {
+                viewDataQuality.setDataQuality(result);
+            }
+        });
+    }
+    void loadPrivacy(View view){
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.linear_layout_add);
+        ViewPrivacy viewPrivacy=new ViewPrivacy(getActivity());
+        LinearLayout.LayoutParams LLParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        viewPrivacy.setLayoutParams(LLParams);
+        linearLayout.addView(viewPrivacy);
+        userViewPrivacyControl=new UserViewPrivacyControl(viewPrivacy);
+        userViewPrivacyControl.set();
+
+    }
+
+
     @Override
-    public void onResume(){
-        boolean start = AppInfo.isServiceRunning(getActivity(), ServiceStudy.class.getName());
-
-        if(!start) {
-            updateStatus("Data collection off", DefaultBootstrapBrand.DANGER, false);
-            NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(NOTIFICATION_SERVICE);
-            notificationManager.notify(ServiceStudy.NOTIFY_ID, ServiceStudy.getCompatNotification(getActivity(),"Data Collection - OFF (click to start)"));
-
-        }else{
-            updateStatus(null, DefaultBootstrapBrand.SUCCESS, true);
-            NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(NOTIFICATION_SERVICE);
-            notificationManager.notify(ServiceStudy.NOTIFY_ID, ServiceStudy.getCompatNotification(getActivity(),"Data Collection - ON"));
+    public void onDestroyView() {
+        CHomeScreen cHomeScreen = ((ActivityMain)getActivity()).cConfig.ui.home_screen;
+        if(cHomeScreen.data_quality!=null) {
+            userViewDataQuality.clear();
         }
-
-        super.onResume();
-    }
-    @Override
-    public void onPause(){
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroyView(){
+        if(cHomeScreen.privacy!=null)
+            userViewPrivacyControl.clear();
         super.onDestroyView();
     }
-    void updateStatus(String msg, BootstrapBrand brand, boolean isSuccess){
-        tv.setBootstrapBrand(brand);
-        if(isSuccess) {
-            int uNo=Update.hasUpdate(getActivity());
-            if(uNo==0)
-            tv.setBootstrapText(new BootstrapText.Builder(getActivity()).addText("Status: ").addFontAwesomeIcon("fa_check_circle").build());
-            else {
-                tv.setBootstrapBrand(DefaultBootstrapBrand.WARNING);
-                tv.setBootstrapText(new BootstrapText.Builder(getActivity()).addText("Status: ").addFontAwesomeIcon("fa_check_circle").addText(" (Update Available)").build());
-            }
-        }
-        else
-            tv.setBootstrapText(new BootstrapText.Builder(getActivity()).addText("Status: ").addFontAwesomeIcon("fa_times_circle").addText(" ("+msg+")").build());
-    }
-
 }

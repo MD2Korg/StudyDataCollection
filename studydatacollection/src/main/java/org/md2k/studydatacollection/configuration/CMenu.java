@@ -26,11 +26,8 @@ package org.md2k.studydatacollection.configuration;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import org.md2k.datakitapi.source.datasource.DataSource;
-
-public class CDataQuality {
-    String title;
-    DataSource datasource;
-    String video_link;
-    String message;
+public class CMenu {
+    public String id;
+    public String title;
+    public String[] parameter;
 }

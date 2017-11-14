@@ -27,5 +27,8 @@ package org.md2k.studydatacollection.configuration;
  */
 
 public class CUI {
-    CDataQuality[] data_quality;
+    public CMenu[] menu;
+    public CHomeScreen home_screen;
+    public CHelp help;
+    public CContact contact;
 }

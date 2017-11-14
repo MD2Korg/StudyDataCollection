@@ -7,7 +7,6 @@ import com.beardedhen.androidbootstrap.TypefaceProvider;
 
 import org.md2k.mcerebrum.core.access.MCerebrum;
 
-
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>

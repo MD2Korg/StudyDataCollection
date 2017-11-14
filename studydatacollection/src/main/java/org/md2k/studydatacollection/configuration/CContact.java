@@ -1,4 +1,4 @@
-package org.md2k.studydatacollection.data_quality;
+package org.md2k.studydatacollection.configuration;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -26,6 +26,25 @@ package org.md2k.studydatacollection.data_quality;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-public interface ResultCallback {
-    public void onResult(int[] result);
+public class CContact {
+    private String name;
+    private String phone;
+    private String email;
+    private String address;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
 }

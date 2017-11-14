@@ -1,4 +1,7 @@
-package org.md2k.studydatacollection;
+package org.md2k.studydatacollection.configuration;
+
+import org.md2k.mcerebrum.commons.ui.data_quality.CDataQuality;
+
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -25,7 +28,7 @@ package org.md2k.studydatacollection;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-public interface ResponseCallback {
-    void onResponse(String[] selection);
+public class CHomeScreen {
+    public CDataQuality[] data_quality;
+    public CPrivacy privacy;
 }
