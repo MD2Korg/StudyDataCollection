@@ -1,5 +1,6 @@
 package org.md2k.studydatacollection.configuration;
 
+
 import org.md2k.mcerebrum.commons.ui.data_quality.CDataQuality;
 
 /*

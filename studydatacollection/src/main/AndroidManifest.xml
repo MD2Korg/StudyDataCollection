@@ -27,7 +27,6 @@
             android:name=".ServiceStudy"
             android:exported="true"
             android:enabled="true" />
-
     </application>
 
 </manifest>

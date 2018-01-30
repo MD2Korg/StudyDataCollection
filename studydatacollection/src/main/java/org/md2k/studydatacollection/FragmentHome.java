@@ -1,8 +1,5 @@
 package org.md2k.studydatacollection;
 
-import android.app.NotificationManager;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,25 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.beardedhen.androidbootstrap.AwesomeTextView;
-import com.beardedhen.androidbootstrap.BootstrapText;
-import com.beardedhen.androidbootstrap.api.attributes.BootstrapBrand;
-import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
-import com.mikepenz.fontawesome_typeface_library.FontAwesome;
-import com.mikepenz.iconics.IconicsDrawable;
-
 import org.md2k.mcerebrum.commons.ui.data_quality.CDataQuality;
 import org.md2k.mcerebrum.commons.ui.data_quality.ResultCallback;
 import org.md2k.mcerebrum.commons.ui.data_quality.UserViewDataQuality;
 import org.md2k.mcerebrum.commons.ui.data_quality.ViewDataQuality;
 import org.md2k.mcerebrum.commons.ui.privacy.UserViewPrivacyControl;
 import org.md2k.mcerebrum.commons.ui.privacy.ViewPrivacy;
-import org.md2k.mcerebrum.core.access.appinfo.AppInfo;
-import org.md2k.mcerebrum.core.data_format.DATA_QUALITY;
-import org.md2k.mcerebrum.system.update.Update;
 import org.md2k.studydatacollection.configuration.CHomeScreen;
-
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class FragmentHome extends Fragment {
     UserViewDataQuality userViewDataQuality;

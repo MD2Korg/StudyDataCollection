@@ -58,12 +58,13 @@ public abstract class AbstractActivityMenu extends AbstractActivityBasics {
         result.resetDrawerContent();
         result.getHeader().refreshDrawableState();
         result.setSelection(MyMenu.MENU_HOME);
+        updateMenu();
     }
 
     public void updateMenu() {
         if (result == null) {
             createMenu();
-            return;
+//            return;
         }
         if(MyMenu.hasMenuItem(cConfig.ui.menu, MyMenu.MENU_UPDATE)) {
             int badgeValue = Update.hasUpdate(AbstractActivityMenu.this);

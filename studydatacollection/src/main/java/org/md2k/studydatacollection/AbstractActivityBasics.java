@@ -20,7 +20,6 @@ import org.md2k.mcerebrum.commons.permission.Permission;
 import org.md2k.mcerebrum.commons.permission.PermissionCallback;
 import org.md2k.mcerebrum.commons.ui.data_quality.CDataQuality;
 import org.md2k.mcerebrum.commons.ui.data_quality.DataQualityManager;
-import org.md2k.mcerebrum.commons.ui.privacy.UserViewPrivacyControl;
 import org.md2k.mcerebrum.core.access.studyinfo.StudyCP;
 import org.md2k.mcerebrum.system.update.Update;
 import org.md2k.studydatacollection.configuration.CConfig;
@@ -95,6 +94,7 @@ public abstract class AbstractActivityBasics extends AppCompatActivity {
                 public void onConnected() {
                     dataQualityStart();
                     createMenu();
+
                 }
             });
         } catch (DataKitException e) {
